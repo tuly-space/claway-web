@@ -858,7 +858,7 @@ export default function Home() {
           <div>
             <p className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
               <LobsterIcon className="h-6 w-6" />
-              Claw<span className="text-[var(--accent)]">ay</span>
+              <span>Claw<span className="text-[var(--accent)]">ay</span></span>
             </p>
             <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
               Managed hosting for OpenClaw and more.
