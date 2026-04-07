@@ -22,7 +22,7 @@ export default function PricingPage() {
           className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
           <LobsterIcon className="h-7 w-7" />
-          <span>claway</span>
+          <span>Claw<span className="text-[var(--accent)]">ay</span></span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-[var(--text-secondary)] md:flex">
@@ -51,7 +51,7 @@ export default function PricingPage() {
           <button
             type="button"
             aria-label="Change language"
-            className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+            className="hidden rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
           >
             <Globe className="h-4 w-4" />
           </button>
@@ -264,7 +264,7 @@ export default function PricingPage() {
           <div>
             <p className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
               <LobsterIcon className="h-6 w-6" />
-              claway
+              Claw<span className="text-[var(--accent)]">ay</span>
             </p>
             <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
               Managed hosting for OpenClaw and more.

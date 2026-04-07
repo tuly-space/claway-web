@@ -14,7 +14,7 @@ export default function SignInPage() {
           className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
           <LobsterIcon className="h-8 w-8" />
-          <span>claway</span>
+          <span>Claw<span className="text-[var(--accent)]">ay</span></span>
         </Link>
 
         {/* Middle: Form */}

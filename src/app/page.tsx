@@ -10,7 +10,7 @@ import { pricingPlans, includedFeatures, faqs } from "@/lib/pricing-data";
 
 const navLinks = [
   { label: "Use Cases", href: "#use-cases" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Pricing", href: "/pricing" },
 ];
 
 const stats = [
@@ -219,7 +219,7 @@ export default function Home() {
           className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
           <LobsterIcon className="h-7 w-7" />
-          <span>claway</span>
+          <span>Claw<span className="text-[var(--accent)]">ay</span></span>
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-[var(--text-secondary)] md:flex">
@@ -245,7 +245,7 @@ export default function Home() {
           <button
             type="button"
             aria-label="Change language"
-            className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+            className="hidden rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
           >
             <Globe className="h-4 w-4" />
           </button>
@@ -316,17 +316,17 @@ export default function Home() {
           The Home for AI Agents
         </div>
         <div className="reveal text-center">
-          <h1 className="font-sans text-[clamp(32px,9vw,38px)] font-[900] leading-[0.92] tracking-[-0.08em] text-[var(--text-primary)] md:text-[80px]">
+          <h1 className="font-sans text-[clamp(32px,9vw,38px)] font-[900] leading-tight tracking-[-0.08em] text-[var(--text-primary)] md:text-[80px] md:leading-[1.0]">
             <span className="block">
               Your OpenClaw{" "}
               <LobsterIcon className="animate-bounce-gentle inline-block h-[0.85em] w-[0.85em] align-middle" />
             </span>
-            <span className="gradient-text-animated block">Ready for You</span>
+            <span className="gradient-text-animated block mt-2">Ready for You</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[var(--text-secondary)] md:text-[22px]">
-            A Personal AI Assistant everyone&apos;s obsessed with{" "}
+          <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-[var(--text-secondary)] md:text-[22px]">
+            A proactive AI assistant with real personality —{" "}
             <strong className="font-extrabold text-[var(--text-primary)]">
-              works 24/7, no setup needed.
+              available 24/7, zero setup required.
             </strong>
           </p>
         </div>
@@ -858,7 +858,7 @@ export default function Home() {
           <div>
             <p className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
               <LobsterIcon className="h-6 w-6" />
-              claway
+              Claw<span className="text-[var(--accent)]">ay</span>
             </p>
             <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
               Managed hosting for OpenClaw and more.
