@@ -313,7 +313,7 @@ export default function Home() {
 
       <section className="flex w-full flex-col items-center gap-6 px-5 pb-16 pt-8 md:gap-8 md:px-20 md:pb-[100px] md:pt-[120px]">
         <div className="reveal rounded-[20px] bg-[var(--bg-dark)] px-5 py-2 text-sm font-semibold text-[var(--text-secondary)]">
-          ⭐ 350k+ GitHub Stars · #1 Trending
+          🏠 The Home for AI Agents
         </div>
         <div className="reveal text-center">
           <h1 className="font-sans text-[clamp(32px,9vw,38px)] font-[900] leading-[0.92] tracking-[-0.08em] text-[var(--text-primary)] md:text-[80px]">
