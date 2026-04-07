@@ -120,19 +120,19 @@ const pricingPlans = [
 const testimonials = [
   {
     quote:
-      "Hermes has become my default environment. I stopped thinking about setup and just ship.",
+      "At this point I don't even know what to call @openclaw. It is something new. After a few weeks in with it, this is the first time I have felt like I am living in the future since the launch of ChatGPT.",
     author: "Dave Morin",
     handle: "@davemorin",
   },
   {
     quote:
-      "The fastest way I’ve found to go from idea to a working AI workflow without babysitting infra.",
+      "Using @openclaw for a week now and it genuinely feels like early AGI. The gap between what I can imagine and what actually works has never been smaller.",
     author: "Tobi",
-    handle: "@tobi",
+    handle: "@tobi_bsf",
   },
   {
     quote:
-      "This is the missing layer between powerful agents and actually using them every day.",
+      "Yeah this was 1,000% worth it. Separate Claude subscription + Clawd, managing Claude Code / Codex sessions I can kick off anywhere, autonomously running tests on my app and capturing errors through a sentry webhook then resolving them and opening PRs... The future is here.",
     author: "Nat Eliason",
     handle: "@nateliason",
   },
