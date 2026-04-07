@@ -743,12 +743,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="reveal mt-12 grid gap-6 xl:grid-cols-3">
+        <div className="reveal mt-12 grid gap-6 md:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div
               key={plan.name}
               className={cn(
-                "relative rounded-[28px] border bg-[var(--bg-card)] p-8 shadow-[0_16px_60px_rgba(15,23,42,0.05)]",
+                "relative rounded-[28px] border bg-[var(--bg-card)] p-6 md:p-8 shadow-[0_16px_60px_rgba(15,23,42,0.05)]",
                 plan.featured
                   ? "border-[var(--accent)]"
                   : "border-[var(--divider)]",
