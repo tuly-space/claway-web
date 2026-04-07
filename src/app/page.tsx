@@ -45,7 +45,7 @@ const useCases = [
 
 const agentCards = [
   {
-    title: "OpenClaw 🦀",
+    title: "OpenClaw 🦞",
     badge: "Available Now",
     badgeClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
     description:
@@ -275,7 +275,7 @@ export default function Home() {
           href="/"
           className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
-          <span aria-hidden="true">🦀</span>
+          <span aria-hidden="true">🦞</span>
           <span>claway</span>
         </Link>
 
@@ -377,7 +377,7 @@ export default function Home() {
             <span className="block">
               Your OpenClaw{" "}
               <span className="animate-bounce-gentle inline-block" aria-hidden="true">
-                🦀
+                🦞
               </span>
             </span>
             <span className="gradient-text-animated block">Ready for You</span>
@@ -469,7 +469,7 @@ export default function Home() {
                           )}
                         >
                           <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
-                            {isUser ? "User" : "Agent (OpenClaw 🦀)"}
+                            {isUser ? "User" : "Agent (OpenClaw 🦞)"}
                           </p>
                           <p>{message.text}</p>
                         </div>
@@ -885,7 +885,7 @@ export default function Home() {
       >
         <div className="reveal mx-auto max-w-4xl">
           <div className="animate-bounce-gentle text-[96px]" aria-hidden="true">
-            🦀
+            🦞
           </div>
           <h2 className="mt-4 text-[40px] font-[900] leading-none tracking-[-0.06em] text-[var(--text-primary)] md:text-[56px]">
             Start your AI journey today.
@@ -918,7 +918,7 @@ export default function Home() {
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <p className="text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
-              claway 🦀
+              claway 🦞
             </p>
             <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
               Managed hosting for OpenClaw and more.
