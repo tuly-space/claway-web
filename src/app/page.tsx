@@ -340,20 +340,6 @@ export default function Home() {
           <p className="text-sm text-[var(--text-muted)]">
             Run OpenClaw instantly. Cancel anytime.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-medium">
-            <Link
-              href="/auth/signin?provider=google"
-              className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
-            >
-              Google Login
-            </Link>
-            <Link
-              href="/checkout/paypal"
-              className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
-            >
-              PayPal
-            </Link>
-          </div>
         </div>
 
         <div className="reveal relative mt-8 w-full max-w-[960px]">
