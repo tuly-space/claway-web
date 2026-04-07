@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Check, ChevronDown, ChevronRight, Globe, Menu, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import LobsterIcon from "@/components/LobsterIcon";
+import { pricingPlans, includedFeatures, faqs } from "@/lib/pricing-data";
 
 const navLinks = [
   { label: "Use Cases", href: "#use-cases" },
@@ -89,57 +91,7 @@ const steps = [
   },
 ];
 
-const pricingPlans = [
-  {
-    name: "LITE",
-    monthly: "$16/mo",
-    yearly: "$159/yr",
-    specs: ["2 vCPU", "4 GB RAM", "40 GB SSD"],
-  },
-  {
-    name: "PRO",
-    monthly: "$33/mo",
-    yearly: "$329/yr",
-    specs: ["4 vCPU", "8 GB RAM", "80 GB SSD"],
-    featured: true,
-  },
-  {
-    name: "MAX",
-    monthly: "$66/mo",
-    yearly: "$659/yr",
-    specs: ["8 vCPU", "16 GB RAM", "160 GB SSD"],
-  },
-];
 
-function LobsterIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id="lobster-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#ff4d4d" />
-          <stop offset="100%" stopColor="#991b1b" />
-        </linearGradient>
-      </defs>
-      <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#lobster-gradient)" />
-      <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#lobster-gradient)" />
-      <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#lobster-gradient)" />
-      <path d="M45 15 Q35 5 30 8" stroke="#ff4d4d" strokeWidth="2" strokeLinecap="round" />
-      <path d="M75 15 Q85 5 90 8" stroke="#ff4d4d" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="45" cy="35" r="6" fill="#0f172a" />
-      <circle cx="75" cy="35" r="6" fill="#0f172a" />
-      <circle cx="46" cy="34" r="2" fill="#00e5cc" />
-      <circle cx="76" cy="34" r="2" fill="#00e5cc" />
-    </svg>
-  );
-}
-
-const includedFeatures = [
-  "Private container",
-  "24/7 uptime",
-  "Auto-updates",
-  "Daily backups",
-  "Cancel anytime",
-];
 
 const testimonials = [
   {
@@ -186,38 +138,7 @@ const testimonials = [
   },
 ];
 
-const faqs = [
-  {
-    question: "What is OpenClaw?",
-    answer:
-      "OpenClaw is an open-source AI agent that can operate apps, browse the web, manage files, and handle real workflows on your behalf.",
-  },
-  {
-    question: "Is this an official OpenClaw service?",
-    answer:
-      "No. Claway is an independent managed hosting platform built for people who want to use OpenClaw without handling infrastructure themselves.",
-  },
-  {
-    question: "How do I get started?",
-    answer:
-      "Pick a plan, sign in with Google, and we provision your private instance so you can start using it from the dashboard.",
-  },
-  {
-    question: "How does billing work?",
-    answer:
-      "Billing is subscription-based. You can choose monthly or yearly pricing and switch plans from your dashboard.",
-  },
-  {
-    question: "How is my data handled?",
-    answer:
-      "Each workspace runs in a private environment with isolated storage, managed updates, and operational safeguards handled by Claway.",
-  },
-  {
-    question: "What if I want a refund?",
-    answer:
-      "If something is off, contact support and we will review it quickly. The pricing is structured to stay straightforward and low-friction.",
-  },
-];
+
 
 const chatMessages = [
   {

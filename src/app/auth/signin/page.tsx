@@ -1,29 +1,35 @@
 "use client";
 
 import Link from "next/link";
+import LobsterIcon from "@/components/LobsterIcon";
 
 export default function SignInPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[var(--bg-primary)] px-5">
-      <div className="w-full max-w-sm">
-        {/* Logo */}
+    <div className="flex h-screen w-full overflow-hidden">
+      {/* LEFT PANEL */}
+      <div className="flex w-full flex-shrink-0 flex-col bg-white p-8 md:w-[420px] md:p-12 lg:w-[480px]">
+        {/* Top: Logo */}
         <Link
           href="/"
-          className="mb-10 flex items-center justify-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
+          className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
+          <LobsterIcon className="h-8 w-8" />
           <span>claway</span>
         </Link>
 
-        <div className="rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-8 shadow-[0_16px_60px_rgba(15,23,42,0.06)]">
-          <h1 className="text-center text-[22px] font-[900] tracking-[-0.04em] text-[var(--text-primary)]">
-            Sign in to Claway
-          </h1>
-          <p className="mt-2 text-center text-sm text-[var(--text-secondary)]">
-            Your OpenClaw, always on.
-          </p>
+        {/* Middle: Form */}
+        <div className="flex flex-1 flex-col justify-center">
+          <div className="mx-auto flex w-full max-w-sm flex-col gap-6">
+            <div>
+              <h1 className="text-[28px] font-[900] tracking-[-0.05em] text-[var(--text-primary)]">
+                Welcome back
+              </h1>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                Sign in to access your OpenClaw instance.
+              </p>
+            </div>
 
-          <div className="mt-8 flex flex-col gap-3">
-            {/* Google */}
+            {/* Google button */}
             <button
               type="button"
               className="flex w-full items-center justify-center gap-3 rounded-[14px] border border-[var(--divider)] bg-white px-5 py-3.5 text-sm font-semibold text-[var(--text-primary)] shadow-[0_2px_8px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(15,23,42,0.1)]"
@@ -36,23 +42,89 @@ export default function SignInPage() {
               </svg>
               Continue with Google
             </button>
-          </div>
 
-          <p className="mt-6 text-center text-xs text-[var(--text-tertiary)]">
-            By signing in, you agree to our{" "}
-            <Link href="#" className="underline hover:text-[var(--text-primary)]">Terms</Link>
-            {" "}and{" "}
-            <Link href="#" className="underline hover:text-[var(--text-primary)]">Privacy Policy</Link>.
-          </p>
+            {/* Divider */}
+            <div className="flex items-center gap-3">
+              <hr className="flex-1 border-[var(--divider)]"/>
+              <span className="text-xs text-[var(--text-tertiary)]">or</span>
+              <hr className="flex-1 border-[var(--divider)]"/>
+            </div>
+
+            {/* Email input */}
+            <input
+              type="email"
+              placeholder="you@example.com"
+              className="w-full rounded-[14px] border border-[var(--divider)] bg-[var(--bg-secondary)] px-4 py-3.5 text-sm outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)]"
+            />
+
+            {/* Continue with Email button */}
+            <button
+              type="button"
+              className="btn-cta w-full py-3.5 text-sm font-bold"
+            >
+              Continue with Email
+            </button>
+
+            {/* Fine print */}
+            <p className="text-sm text-[var(--text-tertiary)]">
+              No account?{" "}
+              <a href="/pricing" className="font-semibold text-[var(--accent)] hover:underline">
+                Plans start at $16/mo →
+              </a>
+            </p>
+          </div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-[var(--text-secondary)]">
-          No account yet?{" "}
-          <Link href="/#pricing" className="font-semibold text-[var(--accent)] hover:underline">
-            See plans →
-          </Link>
+        {/* Bottom */}
+        <p className="text-center text-xs text-[var(--text-tertiary)]">
+          By signing in you agree to our Terms and Privacy Policy.
         </p>
       </div>
-    </main>
+
+      {/* RIGHT PANEL */}
+      <div className="relative hidden flex-1 flex-col items-center justify-center overflow-hidden bg-[var(--bg-secondary)] p-12 md:flex lg:p-16">
+        {/* Decorative background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(239,68,68,0.06),transparent_60%)]"/>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-md">
+          {/* Badge */}
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--divider)] bg-white px-4 py-2 text-sm font-medium text-[var(--text-secondary)] shadow-sm">
+            🔒 Your private instance, always on
+          </span>
+
+          {/* Pull quote */}
+          <blockquote className="mt-8 text-[22px] font-[700] italic leading-[1.3] text-[var(--text-primary)] md:text-[26px]">
+            &ldquo;The gap between what I can imagine and what actually works has never been{" "}
+            <span className="text-[var(--accent)]">smaller.</span>&rdquo;
+          </blockquote>
+          <p className="mt-3 text-sm text-[var(--text-secondary)]">
+            — Tobi, @tobi_bsf
+          </p>
+
+          {/* Stat cards */}
+          <div className="mt-8 grid grid-cols-3 gap-3">
+            {[
+              { value: "60s", label: "Deploy time" },
+              { value: "Private", label: "Isolated" },
+              { value: "24/7", label: "Always on" },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border border-[var(--divider)] bg-white p-4 text-center shadow-sm"
+              >
+                <p className="text-2xl font-[900] text-[var(--text-primary)]">{stat.value}</p>
+                <p className="mt-1 text-xs text-[var(--text-secondary)]">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Social proof */}
+          <p className="mt-8 text-center text-xs text-[var(--text-tertiary)]">
+            Trusted by 10,000+ builders · 350k+ GitHub stars
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
