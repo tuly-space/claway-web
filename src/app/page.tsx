@@ -111,6 +111,28 @@ const pricingPlans = [
   },
 ];
 
+function LobsterIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="lobster-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#ff4d4d" />
+          <stop offset="100%" stopColor="#991b1b" />
+        </linearGradient>
+      </defs>
+      <path d="M60 10 C30 10 15 35 15 55 C15 75 30 95 45 100 L45 110 L55 110 L55 100 C55 100 60 102 65 100 L65 110 L75 110 L75 100 C90 95 105 75 105 55 C105 35 90 10 60 10Z" fill="url(#lobster-gradient)" />
+      <path d="M20 45 C5 40 0 50 5 60 C10 70 20 65 25 55 C28 48 25 45 20 45Z" fill="url(#lobster-gradient)" />
+      <path d="M100 45 C115 40 120 50 115 60 C110 70 100 65 95 55 C92 48 95 45 100 45Z" fill="url(#lobster-gradient)" />
+      <path d="M45 15 Q35 5 30 8" stroke="#ff4d4d" strokeWidth="2" strokeLinecap="round" />
+      <path d="M75 15 Q85 5 90 8" stroke="#ff4d4d" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="45" cy="35" r="6" fill="#0f172a" />
+      <circle cx="75" cy="35" r="6" fill="#0f172a" />
+      <circle cx="46" cy="34" r="2" fill="#00e5cc" />
+      <circle cx="76" cy="34" r="2" fill="#00e5cc" />
+    </svg>
+  );
+}
+
 const includedFeatures = [
   "Private container",
   "24/7 uptime",
@@ -275,7 +297,7 @@ export default function Home() {
           href="/"
           className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
         >
-          <span aria-hidden="true">🦞</span>
+          <LobsterIcon className="h-7 w-7" />
           <span>claway</span>
         </Link>
 
@@ -376,9 +398,7 @@ export default function Home() {
           <h1 className="font-sans text-[clamp(32px,9vw,38px)] font-[900] leading-[0.92] tracking-[-0.08em] text-[var(--text-primary)] md:text-[80px]">
             <span className="block">
               Your OpenClaw{" "}
-              <span className="animate-bounce-gentle inline-block" aria-hidden="true">
-                🦞
-              </span>
+              <LobsterIcon className="animate-bounce-gentle inline-block h-[0.85em] w-[0.85em] align-middle" />
             </span>
             <span className="gradient-text-animated block">Ready for You</span>
           </h1>
@@ -743,7 +763,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="reveal mt-12 grid gap-6 md:grid-cols-3">
+        <div className="reveal mt-12 grid grid-cols-2 gap-6 md:grid-cols-3">
           {pricingPlans.map((plan) => (
             <div
               key={plan.name}
@@ -884,9 +904,7 @@ export default function Home() {
         className="bg-[var(--bg-secondary)] px-5 py-24 text-center md:px-20"
       >
         <div className="reveal mx-auto max-w-4xl">
-          <div className="animate-bounce-gentle text-[96px]" aria-hidden="true">
-            🦞
-          </div>
+          <LobsterIcon className="animate-bounce-gentle mx-auto h-24 w-24" />
           <h2 className="mt-4 text-[40px] font-[900] leading-none tracking-[-0.06em] text-[var(--text-primary)] md:text-[56px]">
             Start your AI journey today.
           </h2>
@@ -917,8 +935,9 @@ export default function Home() {
       <footer className="border-t border-[var(--divider)] bg-[var(--bg-footer)] px-5 py-12 md:px-20">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
-              claway 🦞
+            <p className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
+              <LobsterIcon className="h-6 w-6" />
+              claway
             </p>
             <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
               Managed hosting for OpenClaw and more.
