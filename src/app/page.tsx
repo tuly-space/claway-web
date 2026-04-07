@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   ArrowRight,
-  BadgeCheck,
   Bolt,
   Check,
   ChevronRight,
@@ -13,10 +12,8 @@ import {
   HardDriveDownload,
   Lock,
   Menu,
-  MessageSquareQuote,
   Network,
   ShieldCheck,
-  Sparkles,
   Star,
   Waypoints,
   X,
@@ -35,27 +32,27 @@ const features = [
   {
     icon: Zap,
     title: "Always On",
-    description: "24/7 uptime with zero-downtime maintenance and proactive health checks.",
+    description: "24/7 uptime with zero-downtime maintenance and proactive health checks for long-running OpenClaw sessions.",
   },
   {
     icon: Lock,
     title: "Private & Secure",
-    description: "Your agent runs in an isolated container with encrypted data and scoped access.",
+    description: "Your OpenClaw runs in an isolated container with encrypted storage and scoped access.",
   },
   {
     icon: CloudCog,
     title: "Auto-Updates",
-    description: "Stay on the latest Hermes agent release without manual patching or rebuilds.",
+    description: "Stay current without manually rebuilding environments, patching dependencies, or babysitting upgrades.",
   },
   {
     icon: Globe,
     title: "Access Anywhere",
-    description: "Open your workspace in the browser from any device, anywhere in the world.",
+    description: "Launch your hosted agent in the browser from any device, anywhere in the world.",
   },
   {
     icon: HardDriveDownload,
     title: "Daily Backups",
-    description: "Automatic snapshots keep your work, prompts, and configuration recoverable.",
+    description: "Automatic snapshots keep your work, prompts, and agent state recoverable.",
   },
   {
     icon: Waypoints,
@@ -67,15 +64,39 @@ const features = [
 const steps = [
   {
     title: "Choose your plan",
-    description: "Pick the compute profile that matches your agent's workload and team size.",
+    description: "Pick the compute profile that matches your OpenClaw workload and budget.",
   },
   {
-    title: "We spin up your private instance",
-    description: "Claway provisions a hardened environment with dependencies, storage, and updates handled.",
+    title: "We launch your private OpenClaw",
+    description: "Claway provisions a hardened runtime with dependencies, encrypted storage, and updates handled.",
   },
   {
-    title: "Access via browser",
-    description: "Sign in and start using your Hermes agent immediately with no local setup required.",
+    title: "Open it in the browser",
+    description: "Sign in and start using OpenClaw immediately with no local setup, Docker, or SSH work.",
+  },
+];
+
+const agentCards = [
+  {
+    name: "OpenClaw 🦀",
+    status: "Available Now",
+    statusClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    description:
+      "The open-source AI agent that controls your screen, apps, and does real work.",
+  },
+  {
+    name: "Hermes Agent 🤖",
+    status: "Available Now",
+    statusClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    description:
+      "Claude-powered coding and task automation agent, pre-configured and ready.",
+  },
+  {
+    name: "More Agents 🔮",
+    status: "Coming Soon",
+    statusClassName: "bg-slate-100 text-slate-600 ring-1 ring-slate-200",
+    description:
+      "More open-source agents on the roadmap. Join the waitlist.",
   },
 ];
 
@@ -94,7 +115,7 @@ const pricingPlans = [
     monthly: "$16/mo",
     yearly: "$159/yr",
     specs: "2 vCPU, 4GB RAM, 40GB SSD",
-    cta: "Get Started",
+    cta: "Run OpenClaw Now",
     featured: false,
   },
   {
@@ -103,7 +124,7 @@ const pricingPlans = [
     yearly: "$329/yr",
     specs: "4 vCPU, 8GB RAM, 80GB SSD",
     extra: "Priority Support",
-    cta: "Get Started",
+    cta: "Run OpenClaw Now",
     featured: true,
   },
   {
@@ -112,7 +133,7 @@ const pricingPlans = [
     yearly: "$659/yr",
     specs: "8 vCPU, 16GB RAM, 160GB SSD",
     extra: "Priority Support",
-    cta: "Get Started",
+    cta: "Run OpenClaw Now",
     featured: false,
   },
 ];
@@ -139,8 +160,8 @@ const testimonials = [
 ];
 
 const comparisonErrors = [
-  "$ docker compose up hermes",
-  "Error response from daemon: driver failed programming external connectivity on endpoint hermes-web...",
+  "$ docker compose up openclaw",
+  "Error response from daemon: driver failed programming external connectivity on endpoint openclaw-web...",
   "Bind for 0.0.0.0:3000 failed: port is already allocated",
   "",
   "$ npm install",
@@ -198,7 +219,12 @@ export default function Home() {
               <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20">
                 <Bolt className="h-4 w-4" />
               </span>
-              claway
+              <span className="flex flex-col leading-none">
+                <span>claway</span>
+                <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.24em] text-slate-500">
+                  Agent Hosting
+                </span>
+              </span>
             </Link>
 
             <nav className="hidden items-center gap-8 md:flex">
@@ -233,7 +259,7 @@ export default function Home() {
                 href="#pricing"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/25"
               >
-                Get Started
+                Get OpenClaw
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
@@ -280,7 +306,7 @@ export default function Home() {
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-4 py-3 text-sm font-semibold text-white"
                 >
-                  Get Started
+                  Get OpenClaw
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
@@ -292,36 +318,43 @@ export default function Home() {
           <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-1.5 text-sm font-medium text-slate-600 shadow-sm shadow-slate-200/60">
-                <Sparkles className="h-4 w-4 text-blue-600" />
-                Managed Hermes hosting for serious builders
+                134k+ GitHub Stars · #1 Open Source AI Agent
               </div>
-              <h1 className="mt-8 max-w-3xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-                Your AI Agent, <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">Always On.</span>
+              <h1 className="mt-8 max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+                <span className="block">Your OpenClaw 🦀</span>
+                <span className="block bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+                  Ready in 60 Seconds.
+                </span>
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-                Stop wrestling with Docker, SSH, and broken dependencies. Get a
-                fully managed Hermes AI agent in 60 seconds.
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
+                OpenClaw is the world&apos;s fastest-growing open-source AI agent. We host
+                it for you - fully managed, always on, zero setup.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <a
                   href="#pricing"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-6 py-3.5 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-blue-500/30"
                 >
-                  Start Free Trial
+                  Run OpenClaw Now
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
                   href="#pricing"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-6 py-3.5 text-base font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950"
                 >
-                  See Pricing
+                  See Plans
                   <ChevronRight className="h-4 w-4" />
                 </a>
               </div>
+              <p className="mt-4 text-sm font-medium text-slate-500">
+                Cancel anytime. Your private instance, yours alone.
+              </p>
               <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-slate-200 bg-white/80 px-5 py-4 text-sm text-slate-500 shadow-sm shadow-slate-200/50">
-                <span className="font-semibold text-slate-700">134k+ GitHub stars</span>
+                <span className="font-semibold text-slate-700">OpenClaw</span>
                 <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
-                <span>Trusted by 10,000+ users</span>
+                <span>134k+ ⭐ on GitHub</span>
+                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
+                <span>Trusted by 10,000+ builders</span>
                 <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
                 <span>#1 on GitHub Trending</span>
               </div>
@@ -339,19 +372,18 @@ export default function Home() {
                       <span className="h-3 w-3 rounded-full bg-emerald-400" />
                     </div>
                     <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500">
-                      agent.claway.dev/session/hermes
+                      app.claway.ai/i/xk92p
                     </div>
                   </div>
                 </div>
                 <div className="grid gap-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
                   <div className="grid gap-4 lg:grid-cols-[0.84fr_1.16fr]">
                     <div className="rounded-2xl border border-slate-200 bg-slate-950 p-5 text-sm leading-7 text-slate-100 shadow-inner">
-                      <div className="mb-4 flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-slate-400">
-                        <MessageSquareQuote className="h-4 w-4" />
+                      <div className="mb-4 text-xs uppercase tracking-[0.24em] text-slate-400">
                         Terminal
                       </div>
                       <pre className="overflow-x-auto font-mono text-[13px] text-emerald-300">
-                        <code>{`$ claway launch --template product-spec\n\n✓ Provisioning private Hermes container\n✓ Restoring cached dependencies\n✓ Connecting GitHub and Slack\n✓ Daily backups enabled\n\n> Agent ready in 42s\n> Open in browser\n> https://agent.claway.dev/a/hx7d9`}</code>
+                        <code>{`$ claway launch --agent openclaw\n\n✓ Pulling openclaw:latest\n✓ Provisioning private container\n✓ Mounting encrypted storage\n✓ Connecting integrations\n\n🦀 OpenClaw is ready!\n→ https://app.claway.ai/i/xk92p`}</code>
                       </pre>
                     </div>
                     <div className="space-y-4">
@@ -360,14 +392,14 @@ export default function Home() {
                           <p className="text-sm font-medium text-slate-500">Current status</p>
                           <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                            Healthy
+                            openclaw · online
                           </span>
                         </div>
                         <p className="mt-3 text-2xl font-semibold text-slate-950">
-                          Hermes agent online
+                          Private OpenClaw instance
                         </p>
                         <p className="mt-2 text-sm leading-6 text-slate-600">
-                          Dependencies pinned, storage mounted, and integrations synced across sessions.
+                          Dedicated runtime, encrypted storage, and integrations pre-wired so you can start working instead of self-hosting.
                         </p>
                       </div>
                       <div className="grid gap-4 sm:grid-cols-2">
@@ -376,11 +408,11 @@ export default function Home() {
                           <p className="mt-2 text-3xl font-semibold text-slate-950">60s</p>
                         </div>
                         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-sm font-medium text-slate-500">Integrations</p>
+                          <p className="text-sm font-medium text-slate-500">Connected stack</p>
                           <div className="mt-3 flex items-center gap-3 text-slate-600">
                             <Network className="h-5 w-5" />
                             <Globe className="h-5 w-5" />
-                            <BadgeCheck className="h-5 w-5 text-blue-600" />
+                            <ShieldCheck className="h-5 w-5 text-blue-600" />
                           </div>
                         </div>
                       </div>
@@ -400,10 +432,10 @@ export default function Home() {
               The Self-Hosting Struggle
             </span>
             <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Building with agents should feel fast, not fragile.
+              Everyone wants OpenClaw. Almost no one can set it up.
             </h2>
             <p className="mt-4 max-w-xl text-lg leading-8 text-slate-600">
-              Claway replaces setup debt with a managed runtime built for Hermes from day one.
+              Claway replaces setup debt with a managed runtime built to get OpenClaw online fast, without Docker drift, dependency errors, or ops work.
             </p>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">
@@ -460,8 +492,8 @@ export default function Home() {
       <section id="features" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Features"
-          title="Everything your agent needs to stay production-ready"
-          description="Claway wraps the operational parts of agent hosting so your team can stay focused on shipping."
+          title="Everything your OpenClaw needs to stay production-ready"
+          description="Claway wraps the operational parts of agent hosting so you can stay focused on shipping."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {features.map((feature) => {
@@ -488,7 +520,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="How It Works"
             title="Provisioned, secured, and ready to use"
-            description="Three steps from choosing a plan to having a private Hermes environment live in your browser."
+            description="Three steps from choosing a plan to having a private OpenClaw environment live in your browser."
           />
           <div className="relative mt-16 grid gap-6 lg:grid-cols-3">
             <div className="absolute left-[16.66%] right-[16.66%] top-8 hidden h-px bg-gradient-to-r from-blue-200 via-violet-200 to-blue-200 lg:block" />
@@ -584,6 +616,40 @@ export default function Home() {
             </div>
           ))}
         </div>
+        <p className="mt-8 text-center text-sm text-slate-500">
+          All plans include OpenClaw. Switch to Hermes Agent anytime from your dashboard.
+        </p>
+      </section>
+
+      <section className="bg-slate-50/80 py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Agents"
+            title="One Platform, Multiple Agents"
+            description="Claway doesn&apos;t lock you in. Launch OpenClaw today, switch or add agents as your needs evolve."
+          />
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {agentCards.map((agent) => (
+              <div
+                key={agent.name}
+                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm shadow-slate-200/70"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-2xl font-semibold text-slate-950">{agent.name}</h3>
+                  <span
+                    className={cn(
+                      "inline-flex rounded-full px-3 py-1 text-xs font-semibold",
+                      agent.statusClassName,
+                    )}
+                  >
+                    {agent.status}
+                  </span>
+                </div>
+                <p className="mt-5 text-base leading-7 text-slate-600">{agent.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="bg-slate-50/80 py-24">
@@ -608,6 +674,9 @@ export default function Home() {
                 <div className="mt-6 border-t border-slate-100 pt-5">
                   <p className="font-semibold text-slate-950">{testimonial.author}</p>
                   <p className="mt-1 text-sm text-slate-500">{testimonial.handle}</p>
+                  <span className="mt-3 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100">
+                    🦀 OpenClaw user
+                  </span>
                 </div>
               </div>
             ))}
@@ -677,7 +746,7 @@ export default function Home() {
               claway
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-7 text-slate-600">
-              Premium hosting for Hermes AI agents. Provision once, stay productive everywhere.
+              Managed hosting for OpenClaw, Hermes Agent, and the next wave of AI agents.
             </p>
             <div className="mt-5 flex items-center gap-3 text-slate-500">
               <a
@@ -739,7 +808,7 @@ export default function Home() {
         <div className="border-t border-slate-200">
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <p>© 2026 Claway. All rights reserved.</p>
-            <p>Hosted Hermes agents, without the self-hosting tax.</p>
+            <p>Hosted AI agents, without the self-hosting tax.</p>
           </div>
         </div>
       </footer>
