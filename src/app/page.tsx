@@ -1,112 +1,92 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import {
-  ArrowRight,
-  Bolt,
-  Check,
-  ChevronRight,
-  CloudCog,
-  Globe,
-  HardDriveDownload,
-  Lock,
-  Menu,
-  Network,
-  ShieldCheck,
-  Star,
-  Waypoints,
-  X,
-  Zap,
-} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Check, ChevronDown, ChevronRight, Globe, Menu, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
+  { label: "Use Cases", href: "#use-cases" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Docs", href: "#footer" },
 ];
 
-const features = [
+const stats = [
+  { value: "350k+", label: "Developers Starred" },
+  { value: "500M+", label: "Social Media Views" },
+  { value: "#1 Worldwide", label: "GitHub Trending" },
+];
+
+const benefits = [
   {
-    icon: Zap,
-    title: "Always On",
-    description: "24/7 uptime with zero-downtime maintenance and proactive health checks for long-running OpenClaw sessions.",
+    title: "A private OpenClaw instance, just for you",
+    description: "Your own dedicated bot. Fully isolated, fully yours.",
   },
   {
-    icon: Lock,
-    title: "Private & Secure",
-    description: "Your OpenClaw runs in an isolated container with encrypted storage and scoped access.",
+    title: "Always online, always ready",
+    description: "No downtime, no restarts. Your OpenClaw runs 24/7.",
   },
   {
-    icon: CloudCog,
-    title: "Auto-Updates",
-    description: "Stay current without manually rebuilding environments, patching dependencies, or babysitting upgrades.",
+    title: "You log in and use it. That's it.",
+    description: "We handle updates, security, scaling.",
+  },
+];
+
+const useCases = [
+  "Workflow Automation",
+  "Code & Dev Tools",
+  "Browser Control",
+  "File & System Management",
+  "Smart Home Control",
+  "App & API Integration",
+  "Content Creation",
+  "Personal Assistant",
+];
+
+const agentCards = [
+  {
+    title: "OpenClaw 🦀",
+    badge: "Available Now",
+    badgeClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    description:
+      "The open-source AI that controls your screen, apps, and does real work for you.",
+    cta: "Run OpenClaw Now",
+    href: "#pricing",
+    featured: true,
   },
   {
-    icon: Globe,
-    title: "Access Anywhere",
-    description: "Launch your hosted agent in the browser from any device, anywhere in the world.",
+    title: "Hermes Agent 🤖",
+    badge: "Available Now",
+    badgeClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
+    description:
+      "Claude-powered autonomous coding and task agent. Pre-configured, private, always on.",
+    cta: "Run Hermes Now",
+    href: "#pricing",
   },
   {
-    icon: HardDriveDownload,
-    title: "Daily Backups",
-    description: "Automatic snapshots keep your work, prompts, and agent state recoverable.",
-  },
-  {
-    icon: Waypoints,
-    title: "80+ Integrations",
-    description: "Connect GitHub, Slack, Discord, internal APIs, and the rest of your workflow.",
+    title: "More Agents 🔮",
+    badge: "Coming Soon",
+    badgeClassName: "bg-slate-100 text-slate-600 ring-1 ring-slate-200",
+    description:
+      "More open-source agents on the roadmap. Join the waitlist to be notified first.",
+    cta: "Join Waitlist",
+    href: "#final-cta",
   },
 ];
 
 const steps = [
   {
-    title: "Choose your plan",
-    description: "Pick the compute profile that matches your OpenClaw workload and budget.",
+    title: "Choose a plan",
+    description: "Pick the plan that fits your needs.",
   },
   {
-    title: "We launch your private OpenClaw",
-    description: "Claway provisions a hardened runtime with dependencies, encrypted storage, and updates handled.",
+    title: "We set up your OpenClaw",
+    description: "We spin up a dedicated instance optimized for you.",
   },
   {
-    title: "Open it in the browser",
-    description: "Sign in and start using OpenClaw immediately with no local setup, Docker, or SSH work.",
+    title: "Start using it",
+    description: "No setup steps. Just log in and go.",
   },
-];
-
-const agentCards = [
-  {
-    name: "OpenClaw 🦀",
-    status: "Available Now",
-    statusClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-    description:
-      "The open-source AI agent that controls your screen, apps, and does real work.",
-  },
-  {
-    name: "Hermes Agent 🤖",
-    status: "Available Now",
-    statusClassName: "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200",
-    description:
-      "Claude-powered coding and task automation agent, pre-configured and ready.",
-  },
-  {
-    name: "More Agents 🔮",
-    status: "Coming Soon",
-    statusClassName: "bg-slate-100 text-slate-600 ring-1 ring-slate-200",
-    description:
-      "More open-source agents on the roadmap. Join the waitlist.",
-  },
-];
-
-const planFeatures = [
-  "Zero setup",
-  "24/7 uptime",
-  "Auto-updates",
-  "Daily backups",
-  "Private container",
-  "Cancel anytime",
 ];
 
 const pricingPlans = [
@@ -114,83 +94,151 @@ const pricingPlans = [
     name: "LITE",
     monthly: "$16/mo",
     yearly: "$159/yr",
-    specs: "2 vCPU, 4GB RAM, 40GB SSD",
-    cta: "Run OpenClaw Now",
-    featured: false,
+    specs: ["2 vCPU", "4 GB RAM", "40 GB SSD"],
   },
   {
     name: "PRO",
     monthly: "$33/mo",
     yearly: "$329/yr",
-    specs: "4 vCPU, 8GB RAM, 80GB SSD",
-    extra: "Priority Support",
-    cta: "Run OpenClaw Now",
+    specs: ["4 vCPU", "8 GB RAM", "80 GB SSD"],
     featured: true,
   },
   {
     name: "MAX",
     monthly: "$66/mo",
     yearly: "$659/yr",
-    specs: "8 vCPU, 16GB RAM, 160GB SSD",
-    extra: "Priority Support",
-    cta: "Run OpenClaw Now",
-    featured: false,
+    specs: ["8 vCPU", "16 GB RAM", "160 GB SSD"],
   },
+];
+
+const includedFeatures = [
+  "Private container",
+  "24/7 uptime",
+  "Auto-updates",
+  "Daily backups",
+  "Cancel anytime",
 ];
 
 const testimonials = [
   {
-    quote:
-      "At this point I don't even know what to call @openclaw. It is something new. After a few weeks in with it, this is the first time I have felt like I am living in the future since the launch of ChatGPT.",
     author: "Dave Morin",
     handle: "@davemorin",
+    quote: "At this point I don't even know what to call @openclaw...",
   },
   {
-    quote:
-      "Using @openclaw for a week now and it genuinely feels like early AGI. The gap between what I can imagine and what actually works has never been smaller.",
-    author: "Tobi",
-    handle: "@tobi_bsf",
-  },
-  {
-    quote:
-      "Yeah this was 1,000% worth it. Separate Claude subscription + Clawd, managing Claude Code / Codex sessions I can kick off anywhere, autonomously running tests on my app and capturing errors through a sentry webhook then resolving them and opening PRs... The future is here.",
     author: "Nat Eliason",
     handle: "@nateliason",
+    quote: "Yeah this was 1,000% worth it...",
+  },
+  {
+    author: "Andre Foeken",
+    handle: "@dreetje",
+    quote: "I am so addicted to @openclaw...",
+  },
+  {
+    author: "Tobi",
+    handle: "@tobi_bsf",
+    quote:
+      "Using @openclaw for a week now and it genuinely feels like early AGI...",
+  },
+  {
+    author: "Michael Schmidt",
+    handle: "@therno",
+    quote: "It's running my company",
+  },
+  {
+    author: "Soren G.",
+    handle: "@dajaset",
+    quote:
+      "I got up and running today with @openclaw and its been nothing short of an iPhone moment...",
+  },
+  {
+    author: "Kyle Zantos",
+    handle: "@kylezantos",
+    quote: "Today was one of those days...",
+  },
+  {
+    author: "Nat Eliason",
+    handle: "@nateliason",
+    quote: "Yeah this was 1,000% worth it...",
   },
 ];
 
-const comparisonErrors = [
-  "$ docker compose up openclaw",
-  "Error response from daemon: driver failed programming external connectivity on endpoint openclaw-web...",
-  "Bind for 0.0.0.0:3000 failed: port is already allocated",
-  "",
-  "$ npm install",
-  "ERR! sharp prebuild-install warn install No prebuilt binaries found",
-  "ERR! gyp ERR! stack Error: Python executable not found",
-  "",
-  "$ npm run build",
-  "Module not found: Can't resolve 'libvips'",
-  "Process exited with code 1",
+const faqs = [
+  {
+    question: "What is OpenClaw?",
+    answer:
+      "OpenClaw is an open-source AI agent that can operate apps, browse the web, manage files, and handle real workflows on your behalf.",
+  },
+  {
+    question: "Is this an official OpenClaw service?",
+    answer:
+      "No. Claway is an independent managed hosting platform built for people who want to use OpenClaw without handling infrastructure themselves.",
+  },
+  {
+    question: "How do I get started?",
+    answer:
+      "Pick a plan, sign in with Google, and we provision your private instance so you can start using it from the dashboard.",
+  },
+  {
+    question: "How does billing work?",
+    answer:
+      "Billing is subscription-based. You can choose monthly or yearly pricing and switch plans from your dashboard.",
+  },
+  {
+    question: "How is my data handled?",
+    answer:
+      "Each workspace runs in a private environment with isolated storage, managed updates, and operational safeguards handled by Claway.",
+  },
+  {
+    question: "What if I want a refund?",
+    answer:
+      "If something is off, contact support and we will review it quickly. The pricing is structured to stay straightforward and low-friction.",
+  },
 ];
 
-function SectionHeading({
-  eyebrow,
+const chatMessages = [
+  {
+    role: "user",
+    text: "Good morning! What's on my schedule today?",
+  },
+  {
+    role: "agent",
+    text: "Good morning! Here's your briefing: 3 emails need replies, your PR #142 got approved, and tomorrow's meeting moved to 2pm. Want me to handle the emails first?",
+  },
+  {
+    role: "user",
+    text: "Yes, draft replies. Also block 1hr for deep work today.",
+  },
+  {
+    role: "agent",
+    text: "Done! 3 drafts ready in Gmail. Blocked 3-4pm as Focus Time. Also found a bug in auth.ts:47 - want me to fix it?",
+  },
+  {
+    role: "user",
+    text: "Fix it and open a PR.",
+  },
+  {
+    role: "agent",
+    text: "PR #148 created - fixed null check in token refresh.",
+  },
+];
+
+function SectionHeader({
   title,
   description,
+  className,
 }: {
-  eyebrow: string;
   title: string;
   description: string;
+  className?: string;
 }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
-      <span className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 shadow-sm">
-        {eyebrow}
-      </span>
-      <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+    <div className={cn("reveal mx-auto max-w-3xl text-center", className)}>
+      <h2 className="text-[28px] font-[800] tracking-[-0.04em] text-[var(--text-primary)] md:text-[40px]">
         {title}
       </h2>
-      <p className="mt-4 text-base leading-7 text-slate-600 sm:text-lg">
+      <p className="mt-4 text-base leading-7 text-[var(--text-secondary)] md:text-lg">
         {description}
       </p>
     </div>
@@ -198,618 +246,723 @@ function SectionHeading({
 }
 
 export default function Home() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
-  const [email, setEmail] = useState("");
-  const [waitlistState, setWaitlistState] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        }),
+      { threshold: 0.15 },
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <main className="min-h-screen bg-white text-slate-700">
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-x-0 top-0 -z-10 h-[680px] bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.2),_transparent_38%),radial-gradient(circle_at_top_right,_rgba(139,92,246,0.18),_transparent_30%),linear-gradient(180deg,_#f8fbff_0%,_#ffffff_72%)]" />
-        <div className="absolute left-1/2 top-32 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-blue-500/10 blur-3xl" />
-        <div className="absolute right-0 top-16 -z-10 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+    <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <header className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-[var(--divider)] bg-white/95 px-5 py-5 backdrop-blur-sm md:px-20">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]"
+        >
+          <span aria-hidden="true">🦀</span>
+          <span>claway</span>
+        </Link>
 
-        <header className="sticky top-0 z-50 border-b border-white/60 bg-white/75 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <nav className="hidden items-center gap-8 text-sm font-medium text-[var(--text-secondary)] md:flex">
+          {navLinks.map((link) => (
             <Link
-              href="/"
-              className="flex items-center gap-2 text-lg font-semibold tracking-tight text-slate-950"
+              key={link.href}
+              href={link.href}
+              className="transition hover:text-[var(--text-primary)]"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20">
-                <Bolt className="h-4 w-4" />
-              </span>
-              <span className="flex flex-col leading-none">
-                <span>claway</span>
-                <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.24em] text-slate-500">
-                  Agent Hosting
-                </span>
-              </span>
+              {link.label}
             </Link>
+          ))}
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 transition hover:text-[var(--text-primary)]"
+          >
+            More
+            <ChevronDown className="h-4 w-4" />
+          </button>
+        </nav>
 
-            <nav className="hidden items-center gap-8 md:flex">
-              {navLinks.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-950"
+        <div className="hidden items-center gap-4 md:flex">
+          <button
+            type="button"
+            aria-label="Change language"
+            className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+          >
+            <Globe className="h-4 w-4" />
+          </button>
+          <Link
+            href="/auth/signin"
+            className="text-sm font-semibold text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+          >
+            Sign In
+          </Link>
+          <Link
+            href="#pricing"
+            className="btn-cta inline-flex items-center px-5 py-2.5 text-sm font-semibold"
+          >
+            Get OpenClaw
+          </Link>
+        </div>
+
+        <button
+          type="button"
+          aria-label="Toggle menu"
+          className="inline-flex rounded-full border border-[var(--border)] bg-[var(--bg-card)] p-2 text-[var(--text-primary)] md:hidden"
+          onClick={() => setMobileMenuOpen((value) => !value)}
+        >
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+
+        {mobileMenuOpen ? (
+          <div className="absolute inset-x-5 top-full mt-3 rounded-[24px] border border-[var(--border)] bg-white p-5 shadow-[0_20px_60px_rgba(15,23,42,0.12)] md:hidden">
+            <div className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-semibold text-[var(--text-secondary)]"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item.label}
-                </a>
+                  {link.label}
+                </Link>
               ))}
-            </nav>
-
-            <div className="hidden items-center gap-3 md:flex">
-              <a
-                href="#team"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950"
+              <button
+                type="button"
+                className="flex items-center gap-2 text-left text-sm font-semibold text-[var(--text-secondary)]"
               >
-                Team Edition
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
-                  Coming Soon
-                </span>
-              </a>
+                More
+                <ChevronDown className="h-4 w-4" />
+              </button>
               <Link
                 href="/auth/signin"
-                className="rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-950"
+                className="text-sm font-semibold text-[var(--text-secondary)]"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Sign In
               </Link>
-              <a
+              <Link
                 href="#pricing"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/25"
+                className="btn-cta inline-flex w-full items-center justify-center px-5 py-3 text-sm font-semibold"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 Get OpenClaw
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-
-            <button
-              type="button"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm md:hidden"
-              onClick={() => setMobileOpen((open) => !open)}
-              aria-label="Toggle navigation menu"
-              aria-expanded={mobileOpen}
-            >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-
-          {mobileOpen ? (
-            <div className="border-t border-slate-200 bg-white/95 px-4 py-4 shadow-lg shadow-slate-200/50 backdrop-blur md:hidden">
-              <div className="mx-auto flex max-w-7xl flex-col gap-3">
-                {navLinks.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-slate-950"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-                <a
-                  href="#team"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700"
-                >
-                  Team Edition
-                </a>
-                <Link
-                  href="/auth/signin"
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-slate-700"
-                >
-                  Sign In
-                </Link>
-                <a
-                  href="#pricing"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-4 py-3 text-sm font-semibold text-white"
-                >
-                  Get OpenClaw
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          ) : null}
-        </header>
-
-        <section className="mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
-          <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/90 px-4 py-1.5 text-sm font-medium text-slate-600 shadow-sm shadow-slate-200/60">
-                134k+ GitHub Stars · #1 Open Source AI Agent
-              </div>
-              <h1 className="mt-8 max-w-4xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
-                <span className="block">Your OpenClaw 🦀</span>
-                <span className="block bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                  Ready in 60 Seconds.
-                </span>
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
-                OpenClaw is the world&apos;s fastest-growing open-source AI agent. We host
-                it for you - fully managed, always on, zero setup.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="#pricing"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 px-6 py-3.5 text-base font-semibold text-white shadow-xl shadow-blue-500/20 transition-all hover:-translate-y-0.5 hover:shadow-blue-500/30"
-                >
-                  Run OpenClaw Now
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
-                  href="#pricing"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-6 py-3.5 text-base font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:text-slate-950"
-                >
-                  See Plans
-                  <ChevronRight className="h-4 w-4" />
-                </a>
-              </div>
-              <p className="mt-4 text-sm font-medium text-slate-500">
-                Cancel anytime. Your private instance, yours alone.
-              </p>
-              <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-slate-200 bg-white/80 px-5 py-4 text-sm text-slate-500 shadow-sm shadow-slate-200/50">
-                <span className="font-semibold text-slate-700">OpenClaw</span>
-                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
-                <span>134k+ ⭐ on GitHub</span>
-                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
-                <span>Trusted by 10,000+ builders</span>
-                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:block" />
-                <span>#1 on GitHub Trending</span>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -left-8 top-10 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl" />
-              <div className="absolute -right-6 bottom-6 h-48 w-48 rounded-full bg-violet-500/10 blur-3xl" />
-              <div className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/90 shadow-2xl shadow-slate-300/40 backdrop-blur">
-                <div className="border-b border-slate-200 bg-slate-50/90 px-5 py-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                      <span className="h-3 w-3 rounded-full bg-rose-400" />
-                      <span className="h-3 w-3 rounded-full bg-amber-400" />
-                      <span className="h-3 w-3 rounded-full bg-emerald-400" />
-                    </div>
-                    <div className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500">
-                      app.claway.ai/i/xk92p
-                    </div>
-                  </div>
-                </div>
-                <div className="grid gap-6 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-6 sm:p-8">
-                  <div className="grid gap-4 lg:grid-cols-[0.84fr_1.16fr]">
-                    <div className="rounded-2xl border border-slate-200 bg-slate-950 p-5 text-sm leading-7 text-slate-100 shadow-inner">
-                      <div className="mb-4 text-xs uppercase tracking-[0.24em] text-slate-400">
-                        Terminal
-                      </div>
-                      <pre className="overflow-x-auto font-mono text-[13px] text-emerald-300">
-                        <code>{`$ claway launch --agent openclaw\n\n✓ Pulling openclaw:latest\n✓ Provisioning private container\n✓ Mounting encrypted storage\n✓ Connecting integrations\n\n🦀 OpenClaw is ready!\n→ https://app.claway.ai/i/xk92p`}</code>
-                      </pre>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium text-slate-500">Current status</p>
-                          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                            <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                            openclaw · online
-                          </span>
-                        </div>
-                        <p className="mt-3 text-2xl font-semibold text-slate-950">
-                          Private OpenClaw instance
-                        </p>
-                        <p className="mt-2 text-sm leading-6 text-slate-600">
-                          Dedicated runtime, encrypted storage, and integrations pre-wired so you can start working instead of self-hosting.
-                        </p>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-sm font-medium text-slate-500">Deploy time</p>
-                          <p className="mt-2 text-3xl font-semibold text-slate-950">60s</p>
-                        </div>
-                        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-                          <p className="text-sm font-medium text-slate-500">Connected stack</p>
-                          <div className="mt-3 flex items-center gap-3 text-slate-600">
-                            <Network className="h-5 w-5" />
-                            <Globe className="h-5 w-5" />
-                            <ShieldCheck className="h-5 w-5 text-blue-600" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </Link>
             </div>
           </div>
-        </section>
-      </div>
+        ) : null}
+      </header>
 
-      <section className="border-y border-slate-200 bg-slate-50/80">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <span className="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-rose-700">
-              The Self-Hosting Struggle
+      <section className="flex w-full flex-col items-center gap-6 px-5 pb-16 pt-8 md:gap-8 md:px-20 md:pb-[100px] md:pt-[120px]">
+        <div className="reveal rounded-[20px] bg-[var(--bg-dark)] px-5 py-2 text-sm font-semibold text-[var(--text-secondary)]">
+          ⭐ 350k+ GitHub Stars · #1 Trending
+        </div>
+        <div className="reveal text-center">
+          <h1 className="font-sans text-[clamp(32px,9vw,38px)] font-[900] leading-[0.92] tracking-[-0.08em] text-[var(--text-primary)] md:text-[80px]">
+            <span className="block">
+              Your OpenClaw{" "}
+              <span className="animate-bounce-gentle inline-block" aria-hidden="true">
+                🦀
+              </span>
             </span>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
-              Everyone wants OpenClaw. Almost no one can set it up.
-            </h2>
-            <p className="mt-4 max-w-xl text-lg leading-8 text-slate-600">
-              Claway replaces setup debt with a managed runtime built to get OpenClaw online fast, without Docker drift, dependency errors, or ops work.
-            </p>
+            <span className="gradient-text-animated block">Ready for You</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[var(--text-secondary)] md:text-[22px]">
+            A Personal AI Assistant everyone&apos;s obsessed with{" "}
+            <strong className="font-extrabold text-[var(--text-primary)]">
+              works 24/7, no setup needed.
+            </strong>
+          </p>
+        </div>
+        <div className="reveal flex flex-col items-center gap-4">
+          <Link
+            href="#pricing"
+            className="btn-cta inline-flex items-center justify-center px-8 py-[18px] text-base font-semibold"
+          >
+            Run OpenClaw Now
+          </Link>
+          <p className="text-sm text-[var(--text-muted)]">
+            Run OpenClaw instantly. Cancel anytime.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-sm font-medium">
+            <Link
+              href="/auth/signin?provider=google"
+              className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+            >
+              Google Login
+            </Link>
+            <Link
+              href="/checkout/paypal"
+              className="rounded-full border border-[var(--border)] bg-[var(--bg-card)] px-4 py-2 text-[var(--text-secondary)] transition hover:border-[var(--accent)] hover:text-[var(--text-primary)]"
+            >
+              PayPal
+            </Link>
           </div>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-3xl border border-rose-100 bg-white p-6 shadow-sm shadow-slate-200/70">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-rose-100 text-rose-600">
-                  <X className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="font-semibold text-slate-950">Without Claway</h3>
-                  <p className="text-sm text-slate-500">Ports, builds, and breakage</p>
-                </div>
+        </div>
+
+        <div className="reveal relative mt-8 w-full max-w-[960px]">
+          <div className="absolute inset-x-20 top-10 -z-10 h-48 rounded-full bg-[radial-gradient(circle,_rgba(239,68,68,0.3)_0%,_rgba(239,68,68,0.08)_45%,_transparent_75%)] blur-3xl" />
+          <div className="overflow-hidden rounded-[24px] border border-[var(--divider)] bg-white shadow-[0_25px_80px_rgba(0,0,0,0.12)]">
+            <div className="flex items-center justify-between border-b border-[var(--divider)] bg-[var(--bg-secondary)] px-4 py-3 md:px-6">
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                <span className="h-3 w-3 rounded-full bg-[#28c840]" />
               </div>
-              <div className="overflow-hidden rounded-2xl bg-slate-950 p-5 text-sm leading-7 text-rose-200">
-                <pre className="overflow-x-auto font-mono text-[12px]">
-                  <code>{comparisonErrors.join("\n")}</code>
-                </pre>
+              <span className="font-mono text-xs text-[var(--text-tertiary)] md:text-sm">
+                Claway Dashboard
+              </span>
+              <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 md:text-sm">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                Online
               </div>
             </div>
 
-            <div className="rounded-3xl border border-emerald-100 bg-white p-6 shadow-sm shadow-slate-200/70">
-              <div className="mb-5 flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
-                  <ShieldCheck className="h-5 w-5" />
-                </span>
-                <div>
-                  <h3 className="font-semibold text-slate-950">With Claway</h3>
-                  <p className="text-sm text-slate-500">From signup to productive in minutes</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                {steps.map((step, index) => (
+            <div className="flex h-[380px] md:h-[540px]">
+              <aside className="hidden w-[180px] border-r border-[var(--divider)] bg-[var(--bg-card-alt)] p-4 md:flex md:flex-col md:gap-2">
+                {["Chat", "Tasks", "Memory", "Files", "Settings"].map((item) => (
                   <div
-                    key={step.title}
-                    className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4"
+                    key={item}
+                    className={cn(
+                      "rounded-2xl px-4 py-3 text-sm font-semibold",
+                      item === "Chat"
+                        ? "bg-[rgba(239,68,68,0.1)] text-[var(--accent)]"
+                        : "text-[var(--text-tertiary)]",
+                    )}
                   >
-                    <div className="flex items-start gap-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-sm font-semibold text-white">
-                        {index + 1}
-                      </span>
-                      <div>
-                        <h4 className="font-semibold text-slate-950">{step.title}</h4>
-                        <p className="mt-1 text-sm leading-6 text-slate-600">{step.description}</p>
-                      </div>
-                    </div>
+                    {item}
                   </div>
                 ))}
+              </aside>
+
+              <div className="flex flex-1 flex-col gap-4 overflow-hidden p-4 md:p-6">
+                <div className="flex-1 space-y-3 overflow-hidden">
+                  {chatMessages.map((message, index) => {
+                    const isUser = message.role === "user";
+
+                    return (
+                      <div
+                        key={`${message.role}-${index}`}
+                        className={cn("flex", isUser ? "justify-end" : "justify-start")}
+                      >
+                        <div
+                          className={cn(
+                            "max-w-[88%] rounded-[20px] px-4 py-3 text-sm leading-6 md:max-w-[72%] md:text-[15px]",
+                            isUser
+                              ? "bg-[rgba(239,68,68,0.1)] text-[var(--text-primary)]"
+                              : "bg-[var(--bg-card-alt)] text-[var(--text-secondary)]",
+                          )}
+                        >
+                          <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--text-tertiary)]">
+                            {isUser ? "User" : "Agent (OpenClaw 🦀)"}
+                          </p>
+                          <p>{message.text}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center gap-3 rounded-[20px] border border-[var(--border)] bg-[var(--bg-secondary)] p-3">
+                  <input
+                    disabled
+                    value="Message OpenClaw..."
+                    className="h-12 flex-1 rounded-2xl border border-[var(--border)] bg-white px-4 text-sm text-[var(--text-muted)] outline-none"
+                    onChange={() => {}}
+                  />
+                  <button
+                    type="button"
+                    className="btn-cta inline-flex h-12 items-center justify-center px-5 text-sm font-semibold"
+                  >
+                    Send
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Features"
-          title="Everything your OpenClaw needs to stay production-ready"
-          description="Claway wraps the operational parts of agent hosting so you can stay focused on shipping."
+      <section className="px-5 py-20 md:px-20">
+        <SectionHeader
+          title="The world&apos;s fastest-growing open-source AI"
+          description="OpenClaw exploded because people want an AI that can actually do things, not just talk about them."
         />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {features.map((feature) => {
-            const Icon = feature.icon;
+
+        <div className="reveal mt-12 grid gap-5 md:grid-cols-3">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-2xl border border-[var(--divider)] bg-[var(--bg-card)] p-8 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+            >
+              <p className="text-3xl font-[900] tracking-[-0.05em] text-[var(--text-primary)]">
+                {stat.value}
+              </p>
+              <p className="mt-3 text-sm font-medium text-[var(--text-secondary)]">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="reveal rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-8 text-[var(--text-secondary)] shadow-[0_12px_40px_rgba(15,23,42,0.04)]">
+            <p className="text-lg leading-8">
+              OpenClaw is the agent everyone wants: it can browse, click, code,
+              draft, automate, and handle real workflows. The problem is that
+              most people get stuck at installation, environment setup,
+              dependencies, ports, updates, and breakage long before they ever
+              get value from it.
+            </p>
+          </div>
+          <div className="reveal flex items-center rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card-alt)] p-8 shadow-[0_12px_40px_rgba(15,23,42,0.04)]">
+            <p className="text-[24px] font-[800] leading-9 tracking-[-0.04em] text-[var(--text-primary)] md:text-[30px]">
+              &quot;Everyone wants an OpenClaw. Almost no one can set it up.&quot;
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--bg-secondary)] px-5 py-20 md:px-20">
+        <SectionHeader
+          title="Why most people never actually use OpenClaw"
+          description="The demand is real. The setup burden is what kills momentum."
+        />
+
+        <div className="mt-14 grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr]">
+          <div className="reveal rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-6 shadow-[0_14px_50px_rgba(15,23,42,0.06)] md:p-8">
+            <p className="text-sm font-[800] uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
+              Without Claway
+            </p>
+            <div className="mt-6 rounded-[24px] bg-[#0d1117] p-5 font-mono text-sm leading-7 text-slate-200 shadow-inner">
+              <p>$ git clone openclaw && cd openclaw</p>
+              <p>$ docker compose up</p>
+              <p className="text-red-400">ERROR: port 5432 already in use</p>
+              <p>$ pip install -r requirements.txt</p>
+              <p className="text-red-400">ERROR: python 3.9 required, found 3.12</p>
+              <p className="text-red-400">Build failed. 14 errors.</p>
+            </div>
+            <div className="mt-6 space-y-3 text-[var(--text-secondary)]">
+              {[
+                "Find a server",
+                "Set up the environment",
+                "Something breaks",
+                "Give up",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <span className="text-lg font-bold text-red-500">✗</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="reveal flex justify-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--divider)] bg-white text-lg font-[900] text-[var(--text-secondary)] shadow-[0_8px_24px_rgba(15,23,42,0.08)]">
+              vs
+            </div>
+          </div>
+
+          <div className="reveal rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-6 shadow-[0_14px_50px_rgba(15,23,42,0.06)] md:p-8">
+            <p className="text-sm font-[800] uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
+              With Claway
+            </p>
+            <div className="mt-6 space-y-5">
+              {[
+                "No learning curve or maintenance required",
+                "You don't need to maintain anything",
+                "Claway skips all of that.",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                    <Check className="h-4 w-4" />
+                  </span>
+                  <p className="text-base leading-7 text-[var(--text-secondary)]">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-20 md:px-20">
+        <SectionHeader
+          title="What you get with Claway"
+          description="Claway removes the operational work so the product feels immediate from day one."
+        />
+        <div className="reveal mt-12 grid gap-6 lg:grid-cols-3">
+          {benefits.map((benefit) => (
+            <div
+              key={benefit.title}
+              className="rounded-2xl border border-[var(--divider)] bg-[var(--bg-card)] p-6 shadow-[0_12px_40px_rgba(15,23,42,0.04)] md:p-10"
+            >
+              <h3 className="text-2xl font-[800] tracking-[-0.04em] text-[var(--text-primary)]">
+                {benefit.title}
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                {benefit.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="use-cases" className="bg-[var(--bg-secondary)] px-5 py-20 md:px-20">
+        <SectionHeader
+          title="What OpenClaw Can Do For You"
+          description="These are the workflows people actually want from an agent when it is configured correctly and always available."
+        />
+        <div className="reveal mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {useCases.map((useCase) => (
+            <div
+              key={useCase}
+              className="rounded-2xl border border-[var(--divider)] bg-[var(--bg-card)] p-6 shadow-[0_10px_30px_rgba(15,23,42,0.04)]"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[rgba(239,68,68,0.1)] text-xl">
+                ✦
+              </div>
+              <h3 className="mt-5 text-xl font-[800] tracking-[-0.04em] text-[var(--text-primary)]">
+                {useCase}
+              </h3>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-5 py-20 md:px-20">
+        <SectionHeader
+          title="One Platform. Multiple Agents."
+          description="Claway doesn&apos;t lock you in. Start with OpenClaw - add more agents as your needs grow."
+        />
+        <div className="reveal mt-12 grid gap-6 xl:grid-cols-3">
+          {agentCards.map((agent) => (
+            <div
+              key={agent.title}
+              className={cn(
+                "rounded-2xl border-2 bg-[var(--bg-card)] p-8 shadow-[0_14px_50px_rgba(15,23,42,0.05)]",
+                agent.featured ? "border-[var(--accent)]" : "border-[var(--divider)]",
+              )}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="text-2xl font-[800] tracking-[-0.04em] text-[var(--text-primary)]">
+                  {agent.title}
+                </h3>
+                <span
+                  className={cn(
+                    "rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em]",
+                    agent.badgeClassName,
+                  )}
+                >
+                  {agent.badge}
+                </span>
+              </div>
+              <p className="mt-5 min-h-24 text-base leading-7 text-[var(--text-secondary)]">
+                {agent.description}
+              </p>
+              <Link
+                href={agent.href}
+                className={cn(
+                  "mt-8 inline-flex items-center justify-center rounded-[14px] px-6 py-4 text-sm font-semibold transition",
+                  agent.featured || agent.badge === "Available Now"
+                    ? "btn-cta"
+                    : "border border-[var(--border)] bg-white text-[var(--text-primary)] hover:border-[var(--accent)]",
+                )}
+              >
+                {agent.cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[var(--bg-secondary)] px-5 py-20 md:px-20">
+        <SectionHeader
+          title="How it works"
+          description="The product is intentionally simple: choose a plan, let Claway handle setup, then start using your agent."
+        />
+        <div className="reveal mt-12 grid gap-6 lg:grid-cols-3">
+          {steps.map((step, index) => (
+            <div
+              key={step.title}
+              className="rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-8 shadow-[0_10px_30px_rgba(15,23,42,0.05)]"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(239,68,68,0.12)] text-lg font-[900] text-[var(--accent)]">
+                {index + 1}
+              </div>
+              <h3 className="mt-6 text-2xl font-[800] tracking-[-0.04em] text-[var(--text-primary)]">
+                {step.title}
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="pricing" className="px-5 py-20 md:px-20">
+        <SectionHeader
+          title="Simple, Transparent Pricing"
+          description="Choose the compute profile you need today. Upgrade later if your workloads grow."
+        />
+
+        <div className="reveal mt-8 flex justify-center">
+          <div className="inline-flex rounded-full border border-[var(--border)] bg-[var(--bg-secondary)] p-1">
+            {(["monthly", "yearly"] as const).map((option) => (
+              <button
+                key={option}
+                type="button"
+                className={cn(
+                  "rounded-full px-5 py-2 text-sm font-semibold capitalize transition",
+                  billing === option
+                    ? "bg-white text-[var(--text-primary)] shadow-[0_6px_18px_rgba(15,23,42,0.08)]"
+                    : "text-[var(--text-secondary)]",
+                )}
+                onClick={() => setBilling(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="reveal mt-12 grid gap-6 xl:grid-cols-3">
+          {pricingPlans.map((plan) => (
+            <div
+              key={plan.name}
+              className={cn(
+                "relative rounded-[28px] border bg-[var(--bg-card)] p-8 shadow-[0_16px_60px_rgba(15,23,42,0.05)]",
+                plan.featured
+                  ? "border-[var(--accent)]"
+                  : "border-[var(--divider)]",
+              )}
+            >
+              {plan.featured ? (
+                <span className="absolute right-6 top-6 rounded-full bg-[rgba(239,68,68,0.12)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">
+                  Most Popular
+                </span>
+              ) : null}
+              <p className="text-sm font-[800] uppercase tracking-[0.28em] text-[var(--text-tertiary)]">
+                {plan.name}
+              </p>
+              <p className="mt-6 text-5xl font-[900] tracking-[-0.06em] text-[var(--text-primary)]">
+                {billing === "monthly" ? plan.monthly : plan.yearly}
+              </p>
+              <div className="mt-6 space-y-2 text-sm font-medium text-[var(--text-secondary)]">
+                {plan.specs.map((spec) => (
+                  <p key={spec}>{spec}</p>
+                ))}
+              </div>
+              <div className="mt-8 space-y-3">
+                {includedFeatures.map((feature) => (
+                  <div key={feature} className="flex items-center gap-3">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(239,68,68,0.12)] text-[var(--accent)]">
+                      <Check className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm text-[var(--text-secondary)]">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 space-y-3">
+                <Link
+                  href="/checkout/paypal"
+                  className="btn-cta inline-flex w-full items-center justify-center px-6 py-4 text-sm font-semibold"
+                >
+                  Subscribe to {plan.name}
+                </Link>
+                <Link
+                  href="/auth/signin?provider=google"
+                  className="inline-flex w-full items-center justify-center rounded-[14px] border border-[var(--border)] bg-white px-6 py-4 text-sm font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]"
+                >
+                  Sign in with Google
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="reveal mt-8 text-center text-sm text-[var(--text-muted)]">
+          Also supports Hermes Agent - switch anytime from your dashboard.
+        </p>
+      </section>
+
+      <section className="bg-[var(--bg-secondary)] px-5 py-20 md:px-20">
+        <div className="reveal mx-auto max-w-3xl text-center">
+          <span className="inline-flex rounded-full border border-[var(--divider)] bg-white px-4 py-2 text-sm font-semibold text-[var(--text-secondary)]">
+            10,000+ people have reserved their spot
+          </span>
+          <h2 className="mt-6 text-[28px] font-[800] tracking-[-0.04em] text-[var(--text-primary)] md:text-[40px]">
+            People are already lining up
+          </h2>
+        </div>
+
+        <div className="mt-12 space-y-5 overflow-hidden">
+          {[testimonials, [...testimonials].reverse()].map((row, rowIndex) => (
+            <div key={rowIndex} className="marquee-row">
+              <div
+                className={cn("marquee-track", rowIndex === 1 ? "[animation-direction:reverse]" : "")}
+              >
+                {[...row, ...row].map((testimonial, index) => (
+                  <article
+                    key={`${testimonial.author}-${index}`}
+                    className="min-w-[300px] rounded-2xl border border-[var(--divider)] bg-[var(--bg-card)] p-5 shadow-[0_10px_30px_rgba(15,23,42,0.04)] md:min-w-[360px]"
+                  >
+                    <div className="text-4xl font-black leading-none text-[rgba(239,68,68,0.3)]">
+                      &ldquo;
+                    </div>
+                    <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
+                      {testimonial.quote}
+                    </p>
+                    <p className="mt-5 text-sm font-bold text-[var(--text-primary)]">
+                      {testimonial.author}
+                    </p>
+                    <p className="text-sm text-[var(--text-muted)]">{testimonial.handle}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-5 py-20 md:px-20">
+        <SectionHeader
+          title="Frequently asked questions"
+          description="The core questions are mostly about trust, setup, and whether Claway is the right way to access OpenClaw."
+        />
+        <div className="reveal mx-auto mt-12 max-w-4xl space-y-4">
+          {faqs.map((faq, index) => {
+            const expanded = openFaq === index;
 
             return (
               <div
-                key={feature.title}
-                className="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/70 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/80"
+                key={faq.question}
+                className="overflow-hidden rounded-xl border border-[var(--divider)] bg-[var(--bg-card)]"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/10 to-violet-500/15 text-blue-600 transition-transform duration-300 group-hover:scale-105">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <h3 className="mt-5 text-xl font-semibold text-slate-950">{feature.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600">{feature.description}</p>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  onClick={() => setOpenFaq(expanded ? null : index)}
+                >
+                  <span className="text-lg font-[800] tracking-[-0.03em] text-[var(--text-primary)]">
+                    {faq.question}
+                  </span>
+                  <span className="text-2xl font-light text-[var(--text-secondary)]">
+                    {expanded ? "−" : "+"}
+                  </span>
+                </button>
+                {expanded ? (
+                  <div className="border-t border-[var(--divider)] px-6 py-5 text-base leading-7 text-[var(--text-secondary)]">
+                    {faq.answer}
+                  </div>
+                ) : null}
               </div>
             );
           })}
         </div>
       </section>
 
-      <section className="bg-slate-50/80 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="How It Works"
-            title="Provisioned, secured, and ready to use"
-            description="Three steps from choosing a plan to having a private OpenClaw environment live in your browser."
-          />
-          <div className="relative mt-16 grid gap-6 lg:grid-cols-3">
-            <div className="absolute left-[16.66%] right-[16.66%] top-8 hidden h-px bg-gradient-to-r from-blue-200 via-violet-200 to-blue-200 lg:block" />
-            {steps.map((step, index) => (
-              <div
-                key={step.title}
-                className="relative rounded-3xl border border-slate-200 bg-white p-8 shadow-sm shadow-slate-200/70"
-              >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-r from-blue-600 to-violet-600 text-lg font-semibold text-white shadow-lg shadow-blue-500/20">
-                  {index + 1}
-                </div>
-                <h3 className="mt-6 text-2xl font-semibold text-slate-950">{step.title}</h3>
-                <p className="mt-3 text-base leading-7 text-slate-600">{step.description}</p>
-              </div>
-            ))}
+      <section
+        id="final-cta"
+        className="bg-[var(--bg-secondary)] px-5 py-24 text-center md:px-20"
+      >
+        <div className="reveal mx-auto max-w-4xl">
+          <div className="animate-bounce-gentle text-[96px]" aria-hidden="true">
+            🦀
           </div>
-        </div>
-      </section>
-
-      <section id="pricing" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <SectionHeading
-          eyebrow="Pricing"
-          title="Simple plans for solo builders and high-output teams"
-          description="Switch between monthly and yearly billing. Yearly plans save 16% and keep every managed hosting feature included."
-        />
-
-        <div className="mt-10 flex justify-center">
-          <div className="inline-flex rounded-full border border-slate-200 bg-slate-50 p-1 shadow-sm">
-            {(["monthly", "yearly"] as const).map((option) => (
-              <button
-                key={option}
-                type="button"
-                onClick={() => setBilling(option)}
-                className={cn(
-                  "rounded-full px-5 py-2 text-sm font-semibold capitalize transition-all",
-                  billing === option
-                    ? "bg-white text-slate-950 shadow-sm"
-                    : "text-slate-500 hover:text-slate-800",
-                )}
-              >
-                {option}
-                {option === "yearly" ? " · Save 16%" : ""}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-6 xl:grid-cols-3">
-          {pricingPlans.map((plan) => (
-            <div
-              key={plan.name}
-              className={cn(
-                "relative rounded-[28px] border bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl",
-                plan.featured
-                  ? "border-transparent bg-[linear-gradient(#fff,#fff)_padding-box,linear-gradient(135deg,#2563eb,#8b5cf6)_border-box] shadow-blue-100"
-                  : "border-slate-200 shadow-slate-200/70",
-              )}
+          <h2 className="mt-4 text-[40px] font-[900] leading-none tracking-[-0.06em] text-[var(--text-primary)] md:text-[56px]">
+            Start your AI journey today.
+          </h2>
+          <p className="mt-5 text-xl text-[var(--text-secondary)]">
+            Get your personal OpenClaw in minutes.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/auth/signin?provider=google"
+              className="btn-cta inline-flex items-center justify-center px-8 py-[18px] text-base font-semibold"
             >
-              {plan.featured ? (
-                <span className="absolute right-6 top-6 inline-flex items-center rounded-full bg-gradient-to-r from-blue-600 to-violet-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-lg shadow-blue-500/20">
-                  Most Popular
-                </span>
-              ) : null}
-              <p className="text-sm font-semibold tracking-[0.3em] text-slate-500">{plan.name}</p>
-              <div className="mt-6">
-                <div className="text-4xl font-semibold tracking-tight text-slate-950">
-                  {billing === "monthly" ? plan.monthly : plan.yearly}
-                </div>
-                <p className="mt-3 text-sm text-slate-500">{plan.specs}</p>
-                {plan.extra ? <p className="mt-2 text-sm font-medium text-blue-600">{plan.extra}</p> : null}
-              </div>
-              <a
-                href="/auth/signin"
-                className={cn(
-                  "mt-8 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-all",
-                  plan.featured
-                    ? "bg-gradient-to-r from-blue-600 via-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20 hover:-translate-y-0.5"
-                    : "border border-slate-200 bg-white text-slate-800 hover:-translate-y-0.5 hover:border-slate-300",
-                )}
-              >
-                {plan.cta}
-              </a>
-              <div className="mt-8 space-y-3">
-                {planFeatures.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3 text-sm text-slate-600">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                      <Check className="h-4 w-4" />
-                    </span>
-                    {feature}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-center text-sm text-slate-500">
-          All plans include OpenClaw. Switch to Hermes Agent anytime from your dashboard.
-        </p>
-      </section>
-
-      <section className="bg-slate-50/80 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Agents"
-            title="One Platform, Multiple Agents"
-            description="Claway doesn&apos;t lock you in. Launch OpenClaw today, switch or add agents as your needs evolve."
-          />
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {agentCards.map((agent) => (
-              <div
-                key={agent.name}
-                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm shadow-slate-200/70"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-2xl font-semibold text-slate-950">{agent.name}</h3>
-                  <span
-                    className={cn(
-                      "inline-flex rounded-full px-3 py-1 text-xs font-semibold",
-                      agent.statusClassName,
-                    )}
-                  >
-                    {agent.status}
-                  </span>
-                </div>
-                <p className="mt-5 text-base leading-7 text-slate-600">{agent.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-slate-50/80 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Testimonials"
-            title="Loved by builders who need reliability"
-            description="Real operator feedback from people using hosted agents to move faster without maintenance overhead."
-          />
-          <div className="mt-14 grid gap-6 xl:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.author}
-                className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm shadow-slate-200/70"
-              >
-                <div className="flex gap-1 text-amber-400">
-                  {Array.from({ length: 5 }).map((_, index) => (
-                    <Star key={index} className="h-4 w-4 fill-current" />
-                  ))}
-                </div>
-                <p className="mt-5 text-base leading-8 text-slate-600">“{testimonial.quote}”</p>
-                <div className="mt-6 border-t border-slate-100 pt-5">
-                  <p className="font-semibold text-slate-950">{testimonial.author}</p>
-                  <p className="mt-1 text-sm text-slate-500">{testimonial.handle}</p>
-                  <span className="mt-3 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100">
-                    🦀 OpenClaw user
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="team" className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[32px] border border-slate-800 bg-[radial-gradient(circle_at_top_left,_rgba(96,165,250,0.4),_transparent_28%),radial-gradient(circle_at_bottom_right,_rgba(139,92,246,0.38),_transparent_34%),linear-gradient(135deg,#0f172a_0%,#111827_42%,#1e1b4b_100%)] px-6 py-10 text-white shadow-2xl shadow-slate-300/40 sm:px-10 lg:px-12">
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.05),transparent)]" />
-          <div className="relative grid gap-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-            <div>
-              <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
-                Coming Soon
-              </span>
-              <h2 className="mt-5 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
-                Need Claway for Your Team?
-              </h2>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                Multi-tenant architecture, shared knowledge base, team management
-                and centralized controls are on the roadmap.
-              </p>
-            </div>
-
-            <div className="relative rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur-xl">
-              <label htmlFor="waitlist-email" className="text-sm font-medium text-blue-100">
-                Join Waitlist
-              </label>
-              <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="waitlist-email"
-                  type="email"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="team@company.com"
-                  className="h-12 flex-1 rounded-full border border-white/15 bg-slate-950/20 px-4 text-sm text-white placeholder:text-slate-300/70 focus:border-blue-300 focus:outline-none"
-                />
-                <button
-                  type="button"
-                  onClick={() => {
-                    setWaitlistState(
-                      email.trim()
-                        ? `Waitlist request captured for ${email.trim()}`
-                        : "Enter an email to join the waitlist",
-                    );
-                  }}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-white px-5 text-sm font-semibold text-slate-950 transition-transform hover:-translate-y-0.5"
-                >
-                  Join Waitlist
-                </button>
-              </div>
-              <p className="mt-3 text-sm text-slate-300">
-                {waitlistState ?? "We’ll notify you when team workspaces are ready."}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer id="footer" className="border-t border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
-          <div>
-            <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-slate-950">
-              <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 text-white shadow-lg shadow-blue-500/20">
-                <Bolt className="h-4 w-4" />
-              </span>
-              claway
+              Get Started
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-7 text-slate-600">
-              Managed hosting for OpenClaw, Hermes Agent, and the next wave of AI agents.
+            <Link
+              href="/checkout/paypal"
+              className="inline-flex items-center justify-center rounded-[14px] border border-[var(--border)] bg-white px-8 py-[18px] text-base font-semibold text-[var(--text-primary)] transition hover:border-[var(--accent)]"
+            >
+              Pay with PayPal
+            </Link>
+          </div>
+          <p className="mt-5 text-sm text-[var(--text-muted)]">
+            Claway exists for one reason: to let you use OpenClaw without
+            becoming a sysadmin.
+          </p>
+        </div>
+      </section>
+
+      <footer className="border-t border-[var(--divider)] bg-[var(--bg-footer)] px-5 py-12 md:px-20">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <p className="text-xl font-black tracking-[-0.04em] text-[var(--text-primary)]">
+              claway 🦀
             </p>
-            <div className="mt-5 flex items-center gap-3 text-slate-500">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-slate-200 p-2 transition-colors hover:border-slate-300 hover:text-slate-900"
-              >
-                <Network className="h-4 w-4" />
-              </a>
-              <a
-                href="https://slack.com"
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-full border border-slate-200 p-2 transition-colors hover:border-slate-300 hover:text-slate-900"
-              >
-                <Globe className="h-4 w-4" />
-              </a>
-            </div>
+            <p className="mt-3 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
+              Managed hosting for OpenClaw and more.
+            </p>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Product
-            </h3>
-            <div className="mt-5 space-y-3 text-sm text-slate-600">
-              <a href="#features" className="block transition-colors hover:text-slate-950">
-                Features
-              </a>
-              <a href="#pricing" className="block transition-colors hover:text-slate-950">
-                Pricing
-              </a>
-              <a href="#footer" className="block transition-colors hover:text-slate-950">
-                Docs
-              </a>
-            </div>
+          <div className="flex flex-wrap gap-5 text-sm font-medium text-[var(--text-secondary)]">
+            {[
+              ["Use Cases", "#use-cases"],
+              ["Pricing", "#pricing"],
+              ["Blog", "#footer"],
+              ["Privacy", "#footer"],
+              ["Terms", "#footer"],
+              ["About", "#footer"],
+            ].map(([label, href]) => (
+              <Link key={label} href={href} className="transition hover:text-[var(--text-primary)]">
+                {label}
+              </Link>
+            ))}
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-              Company
-            </h3>
-            <div className="mt-5 space-y-3 text-sm text-slate-600">
-              <a href="#footer" className="block transition-colors hover:text-slate-950">
-                About
-              </a>
-              <a href="#footer" className="block transition-colors hover:text-slate-950">
-                Blog
-              </a>
-              <a href="#footer" className="block transition-colors hover:text-slate-950">
-                Privacy
-              </a>
-              <a href="#footer" className="block transition-colors hover:text-slate-950">
-                Terms
-              </a>
-            </div>
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <Link
+              href="/auth/signin"
+              className="text-sm font-semibold text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="#pricing"
+              className="btn-cta inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold"
+            >
+              Get OpenClaw
+              <ChevronRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
-        <div className="border-t border-slate-200">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-            <p>© 2026 Claway. All rights reserved.</p>
-            <p>Hosted AI agents, without the self-hosting tax.</p>
-          </div>
+
+        <div
+          id="footer"
+          className="mt-10 border-t border-[var(--divider)] pt-6 text-sm text-[var(--text-muted)]"
+        >
+          © 2026 Claway. All rights reserved. · Not affiliated with the official
+          OpenClaw project.
         </div>
       </footer>
     </main>
