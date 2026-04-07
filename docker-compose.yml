@@ -1,0 +1,23 @@
+services:
+  claway-web:
+    build: .
+    container_name: claway-web
+    restart: unless-stopped
+    networks:
+      - wenuts-network
+    environment:
+      - NEXT_PUBLIC_API_URL=https://api.claway.ai
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.claway-web.rule=Host(`claway.ai`)"
+      - "traefik.http.routers.claway-web.entrypoints=websecure"
+      - "traefik.http.routers.claway-web.tls=true"
+      - "traefik.http.services.claway-web.loadbalancer.server.port=3000"
+
+networks:
+  wenuts-network:
+    external: true
