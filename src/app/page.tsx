@@ -321,12 +321,12 @@ export default function Home() {
               Your OpenClaw{" "}
               <LobsterIcon className="animate-bounce-gentle inline-block h-[0.85em] w-[0.85em] align-middle" />
             </span>
-            <span className="gradient-text-animated block mt-2">Ready for You</span>
+            <span className="gradient-text-animated block mt-2 pb-2">Ready for You</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-[var(--text-secondary)] md:text-[22px]">
-            A proactive AI assistant with real personality —{" "}
+            AI assistants with real personality —{" "}
             <strong className="font-extrabold text-[var(--text-primary)]">
-              available 24/7, zero setup required.
+              proactive, always on, zero setup.
             </strong>
           </p>
         </div>
