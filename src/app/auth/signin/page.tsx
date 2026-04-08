@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import LobsterIcon from "@/components/LobsterIcon";
 
 export default function SignInPage() {
@@ -32,6 +33,7 @@ export default function SignInPage() {
             {/* Google button */}
             <button
               type="button"
+              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
               className="flex w-full items-center justify-center gap-3 rounded-[14px] border border-[var(--divider)] bg-white px-5 py-3.5 text-sm font-semibold text-[var(--text-primary)] shadow-[0_2px_8px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_4px_16px_rgba(15,23,42,0.1)]"
             >
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
