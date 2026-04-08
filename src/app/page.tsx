@@ -19,21 +19,6 @@ const stats = [
   { value: "#1 Worldwide", label: "GitHub Trending" },
 ];
 
-const benefits = [
-  {
-    title: "A private OpenClaw instance, just for you",
-    description: "Your own dedicated bot. Fully isolated, fully yours.",
-  },
-  {
-    title: "Always online, always ready",
-    description: "No downtime, no restarts. Your OpenClaw runs 24/7.",
-  },
-  {
-    title: "You log in and use it. That's it.",
-    description: "We handle updates, security, scaling.",
-  },
-];
-
 const useCases = [
   "Workflow Automation",
   "Code & Dev Tools",
@@ -531,11 +516,104 @@ export default function Home() {
 
       <section className="px-5 py-20 md:px-20">
         <SectionHeader
-          title="What you get with Claway"
-          description="Claway removes the operational work so the product feels immediate from day one."
+          title="ChatGPT is rented. Your Claway agent is yours."
+          description="Big model companies give you a shared AI in a walled garden. Claway gives you a private instance that belongs only to you."
         />
         <div className="reveal mt-12 grid gap-6 lg:grid-cols-3">
-          {benefits.map((benefit) => (
+          {[
+            {
+              icon: "🔒",
+              title: "Private Instance",
+              description:
+                "Your agent runs in a completely isolated environment. No shared compute, no shared memory. What you tell your agent stays with your agent.",
+            },
+            {
+              icon: "🧠",
+              title: "Private Memory",
+              description:
+                "Your agent remembers your workflows, preferences, and context. This memory is yours — not pooled into a company's training data.",
+            },
+            {
+              icon: "📦",
+              title: "Your Data, Your Call",
+              description:
+                "Export your memory and config anytime. If you ever leave, everything comes with you. No lock-in.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-[28px] border border-[var(--divider)] bg-[var(--bg-card)] p-8 shadow-[0_12px_40px_rgba(15,23,42,0.04)]"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(239,68,68,0.1)] text-2xl">
+                {item.icon}
+              </div>
+              <h3 className="mt-6 text-xl font-[800] tracking-[-0.04em] text-[var(--text-primary)]">
+                {item.title}
+              </h3>
+              <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                {item.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[var(--bg-secondary)] px-5 py-20 md:px-20">
+        <SectionHeader
+          title="What you get with Claway"
+          description="More than just hosting — your agent grows with you."
+        />
+        <div className="reveal mt-12 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-[28px] border-2 border-[var(--accent)] bg-[var(--bg-card)] p-8 shadow-[0_16px_60px_rgba(239,68,68,0.08)] lg:col-span-2">
+            <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-2xl">
+                <span className="inline-flex rounded-full bg-[rgba(239,68,68,0.1)] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">
+                  Why you won&apos;t want to leave
+                </span>
+                <h3 className="mt-4 text-2xl font-[800] tracking-[-0.04em] text-[var(--text-primary)] md:text-[30px]">
+                  Your agent remembers you
+                </h3>
+                <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                  Unlike ChatGPT which forgets you between sessions, your Claway
+                  agent builds a persistent memory of who you are, how you work,
+                  and what you care about. The longer you use it, the better it
+                  gets — and the harder it becomes to imagine starting over.
+                </p>
+              </div>
+              <div className="flex w-full shrink-0 flex-col gap-3 rounded-2xl bg-[var(--bg-secondary)] p-5 lg:w-[260px]">
+                {[
+                  "Remembers your preferences",
+                  "Learns your workflows",
+                  "Recalls past conversations",
+                  "Gets smarter over time",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[rgba(239,68,68,0.12)] text-[var(--accent)]">
+                      <Check className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-medium text-[var(--text-secondary)]">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {[
+            {
+              title: "A private OpenClaw instance, just for you",
+              description: "Your own dedicated bot. Fully isolated, fully yours.",
+            },
+            {
+              title: "Always online, always ready",
+              description: "No downtime, no restarts. Your OpenClaw runs 24/7.",
+            },
+            {
+              title: "You log in and use it. That's it.",
+              description:
+                "We handle updates, security, and scaling — you just use it.",
+            },
+          ].map((benefit) => (
             <div
               key={benefit.title}
               className="rounded-2xl border border-[var(--divider)] bg-[var(--bg-card)] p-6 shadow-[0_12px_40px_rgba(15,23,42,0.04)] md:p-10"
@@ -575,10 +653,10 @@ export default function Home() {
 
       <section className="px-5 py-20 md:px-20">
         <SectionHeader
-          title="One Platform. Multiple Agents."
-          description="Claway doesn&apos;t lock you in. Start with OpenClaw - add more agents as your needs grow."
+          title="One Platform. Everything Carries Over."
+          description="Skills, memories, and tool configurations you build with one agent are available across all agents on Claway — that&apos;s the moat."
         />
-        <div className="reveal mt-12 grid gap-6 xl:grid-cols-3">
+        <div className="reveal mt-12 grid gap-6 lg:grid-cols-3">
           {agentCards.map((agent) => (
             <div
               key={agent.title}
@@ -616,6 +694,46 @@ export default function Home() {
               </Link>
             </div>
           ))}
+        </div>
+        <div className="reveal mt-10 rounded-[24px] bg-[var(--bg-secondary)] p-8">
+          <p className="text-center text-sm font-[800] uppercase tracking-[0.24em] text-[var(--text-tertiary)]">
+            Shared across all your agents
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                icon: "🧠",
+                label: "Memory",
+                description: "Your agent remembers everything — across all agents.",
+              },
+              {
+                icon: "⚡",
+                label: "Skills",
+                description:
+                  "Workflows and automations you configure once, available everywhere.",
+              },
+              {
+                icon: "🔧",
+                label: "Tool Config",
+                description:
+                  "Connected apps, permissions, and integrations carry over.",
+              },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-xl shadow-sm">
+                  {item.icon}
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-[var(--text-primary)]">
+                    {item.label}
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
